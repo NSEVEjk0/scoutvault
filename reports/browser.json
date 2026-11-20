@@ -5,7 +5,7 @@
       "/root/scoutvault/node_modules/.bin/playwright",
       "test",
       "-g",
-      "desktop and phone|reduced motion"
+      "buyer and scout"
     ],
     "configFile": "/root/scoutvault/playwright.config.ts",
     "rootDir": "/root/scoutvault/tests/browser",
@@ -99,7 +99,7 @@
       "line": 0,
       "specs": [
         {
-          "title": "desktop and phone layouts remain usable and accessible",
+          "title": "buyer and scout complete a funded check through the real API",
           "ok": true,
           "tags": [],
           "tests": [
@@ -114,12 +114,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 10089,
+                  "duration": 33263,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-20T20:57:12.854Z",
+                  "startTime": "2026-11-20T21:32:25.297Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -127,43 +127,9 @@
               "status": "expected"
             }
           ],
-          "id": "b163ed09f68681248ada-f2f9af0ca1a1ffbbd2c1",
+          "id": "b163ed09f68681248ada-9efd0791f5fd917b1085",
           "file": "workspace.spec.ts",
-          "line": 5,
-          "column": 1
-        },
-        {
-          "title": "reduced motion disables drawer animation and keeps keyboard focus",
-          "ok": true,
-          "tags": [],
-          "tests": [
-            {
-              "timeout": 120000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "",
-              "projectName": "",
-              "results": [
-                {
-                  "workerIndex": 0,
-                  "parallelIndex": 0,
-                  "status": "passed",
-                  "duration": 3526,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-20T20:57:24.499Z",
-                  "annotations": [],
-                  "attachments": []
-                }
-              ],
-              "status": "expected"
-            }
-          ],
-          "id": "b163ed09f68681248ada-31afdb92426229501457",
-          "file": "workspace.spec.ts",
-          "line": 19,
+          "line": 28,
           "column": 1
         }
       ]
@@ -171,9 +137,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-11-20T20:57:08.654Z",
-    "duration": 19851.645,
-    "expected": 2,
+    "startTime": "2026-11-20T21:32:23.782Z",
+    "duration": 36387.364,
+    "expected": 1,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

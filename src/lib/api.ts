@@ -3,12 +3,14 @@ import type { AuthSession, Bounty, ListingBaseline, PublicConfig } from '../../s
 const bootstrapOrigin = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '') ?? '';
 export let apiOrigin = bootstrapOrigin;
 let activeConfig: PublicConfig | null = null;
+let configRequest: Promise<PublicConfig> | null = null;
 
 export class ApiError extends Error {
   constructor(message: string, public status: number) { super(message); }
 }
 
 export async function api<T>(path: string, options: RequestInit = {}, session?: AuthSession | null): Promise<T> {
+  if (!path.startsWith('/config') && !activeConfig) await getConfig();
   const headers = new Headers(options.headers);
   if (options.body && !(options.body instanceof FormData)) headers.set('Content-Type', 'application/json');
   if (session) headers.set('Authorization', `Bearer ${session.token}`);
@@ -18,7 +20,12 @@ export async function api<T>(path: string, options: RequestInit = {}, session?: 
   return data as T;
 }
 
-export const getConfig = async () => { const config = await api<PublicConfig>(`/config${new URLSearchParams(location.search).get('demo') === 'local' ? '?demo=local' : ''}`); apiOrigin = config.apiUrl; activeConfig = config; return config; };
+export async function getConfig(): Promise<PublicConfig> {
+  configRequest ??= api<PublicConfig>(`/config${new URLSearchParams(location.search).get('demo') === 'local' ? '?demo=local' : ''}`)
+    .then(config => { apiOrigin = config.apiUrl; activeConfig = config; return config; })
+    .finally(() => { configRequest = null; });
+  return configRequest;
+}
 export const getBounties = (session: AuthSession | null, latitude?: number, longitude?: number) => {
   const query = latitude !== undefined && longitude !== undefined ? `?lat=${latitude}&lng=${longitude}&radius=2000` : '';
   return api<{ bounties: Bounty[]; paidCount: number }>(`/bounties${query}`, {}, session);

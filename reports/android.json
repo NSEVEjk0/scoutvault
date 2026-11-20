@@ -1,0 +1,21 @@
+{
+  "package": "com.scoutvault.app",
+  "version": "0.1.0",
+  "releaseSigningVerified": true,
+  "certificateMatchesWebsite": true,
+  "certificateSha256": "5dbe6294e7288203b83af25b2643d1b196e3db2fe94cc553edc82e186b0be667",
+  "apkSha256": "393662c18e7530a5987b252f09d339b7aded8d314f55ce3115baeb63bb3b84e5",
+  "bytes": 52793883,
+  "permissions": [
+    "android.permission.ACCESS_COARSE_LOCATION",
+    "android.permission.ACCESS_FINE_LOCATION",
+    "android.permission.CAMERA",
+    "android.permission.INTERNET",
+    "com.scoutvault.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+    "android.permission.ACCESS_NETWORK_STATE"
+  ],
+  "nativeArchitectures": "'arm64-v8a'",
+  "compileSdk": "37.0",
+  "targetSdk": "36",
+  "physicalSeekerTest": false
+}

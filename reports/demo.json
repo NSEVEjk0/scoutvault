@@ -1,0 +1,18 @@
+{
+  "durationSeconds": 150.0,
+  "narrationWords": 276,
+  "captioned": true,
+  "workingProductFootage": true,
+  "physicalVisitClaimed": false,
+  "physicalSeekerTest": false,
+  "receipt": {
+    "bountyId": "b3168c8b-dc79-458b-839a-540fe10c906d",
+    "network": "localnet",
+    "token": "TEST USDC",
+    "amount": "2",
+    "fundingSignature": "3oSsZgXx8Mi8GNFT29WRhEWUZD8MrF3SYYi1LT44Srk9U7eTx1JD92kGi7yt4ugz3DjXvBixYUC9bA19BsFop59n",
+    "reportSignature": "3FUjdyG5ikMaWR23mDGrLsRiGmF6eEwxfv6hP9JC8fci7UdWy5Vi2gQz2GTJAUfErVd17gEsBZKghz1etyNmYP8a",
+    "payoutSignature": "2jqPx3aSr8ku8CepikCjUfLEHb51vrEYEuLEtjwQkVUJt1WNjGUc26MTW9K8PoRkea9xWRm7MgFNdvtLnKWUZEFt"
+  },
+  "readableExplorerSeconds": 13.89
+}

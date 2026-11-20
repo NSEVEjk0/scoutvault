@@ -1,0 +1,88 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.189
+A rental page can look convincing while its address or water supply is wrong.
+
+00:00:06.189 --> 00:00:14.589
+ScoutVault lets a buyer ask someone nearby to check it, review a signed report, and release a small bounty.
+
+00:00:14.589 --> 00:00:19.453
+Here is a labelled sample studio listing in Akoka, Lagos.
+
+00:00:19.453 --> 00:00:24.316
+It advertises an address, a price, and a water tank.
+
+00:00:24.316 --> 00:00:26.413
+Paste the link.
+
+00:00:26.413 --> 00:00:32.004
+Firecrawl captures the page and proposes three checks.
+
+00:00:32.004 --> 00:00:38.994
+The buyer can edit the questions and choose the entrance.
+
+00:00:38.994 --> 00:00:43.886
+The public map shows an approximate pin.
+
+00:00:43.886 --> 00:00:47.851
+Review the reward and network costs before funding.
+
+00:00:47.851 --> 00:00:52.312
+These are project-issued test tokens with no cash value.
+
+00:00:52.312 --> 00:00:55.782
+Solana makes a small token bounty practical.
+
+00:00:55.782 --> 00:01:03.217
+The Anchor program holds two tokens for this check and limits who can move them.
+
+00:01:03.217 --> 00:01:06.920
+Switch to the scout and claim the check.
+
+00:01:06.920 --> 00:01:09.698
+Only one scout can claim it.
+
+00:01:09.698 --> 00:01:13.864
+Supabase stores nearby checks and the private audit trail.
+
+00:01:13.864 --> 00:01:16.642
+The written checklist is the default.
+
+00:01:16.642 --> 00:01:22.660
+Play brief reads it aloud when a browser or device voice is available.
+
+00:01:22.660 --> 00:01:25.923
+Answer each question and attach a report.
+
+00:01:25.923 --> 00:01:30.585
+The app supports a fresh camera capture and location permission.
+
+00:01:30.585 --> 00:01:34.314
+I am using the labelled sample illustration here.
+
+00:01:34.314 --> 00:01:38.043
+This recording does not claim a site visit.
+
+00:01:38.043 --> 00:01:41.306
+Seed Vault protects a phone wallet's keys.
+
+00:01:41.306 --> 00:01:45.035
+It does not certify the camera or GPS.
+
+00:01:45.035 --> 00:01:51.112
+The scout signs the report and submits its hash.
+
+00:01:51.112 --> 00:01:58.538
+ScoutVault checks the original photo bytes, report hash, and wallet signature.
+
+00:01:58.538 --> 00:02:09.340
+The buyer reads the answers, sees what could not be confirmed, and approves this exact report.
+
+00:02:09.340 --> 00:02:13.507
+The scout receives two test tokens.
+
+00:02:13.507 --> 00:02:23.229
+Here is the actual payout in Solana Explorer, connected to the local demonstration validator.
+
+00:02:23.229 --> 00:02:30.000
+Public devnet activation and a physical Seeker test remain pending.

@@ -12,6 +12,32 @@ await writeFile('mobile/app.json',JSON.stringify(app,null,2)+'\n');
 for(const [folder,size]of Object.entries({'mipmap-mdpi':48,'mipmap-hdpi':72,'mipmap-xhdpi':96,'mipmap-xxhdpi':144,'mipmap-xxxhdpi':192})){
   const path=resolve('mobile/android/app/src/main/res',folder);await mkdir(path,{recursive:true});
   for(const name of ['ic_launcher.webp','ic_launcher_round.webp'])await sharp(logo).resize(size,size).webp().toFile(resolve(path,name));
+  const splash=resolve('mobile/android/app/src/main/res',folder.replace('mipmap','drawable'),'splashscreen_logo.png');
+  try{
+    const metadata=await sharp(await readFile(splash)).metadata();
+    const width=metadata.width,height=metadata.height;
+    const mark=await sharp(logo).resize(Math.round(width*0.65),Math.round(height*0.65)).png().toBuffer();
+    await sharp({create:{width,height,channels:4,background:{r:0,g:0,b:0,alpha:0}}}).composite([{input:mark,gravity:'center'}]).png().toFile(splash);
+  }catch(error){if(error.code!=='ENOENT')throw error;}
+}
+const colorsPath='mobile/android/app/src/main/res/values/colors.xml';
+let colors=await readFile(colorsPath,'utf8');colors=colors.replace(/(<color name="splashscreen_background">)[^<]+/,'$1#f7f8f4').replace(/(<color name="colorPrimary">)[^<]+/,'$1#164f40');
+await writeFile(colorsPath,colors);
+const gradlePath='mobile/android/app/build.gradle';
+let gradle=await readFile(gradlePath,'utf8');
+if(!gradle.includes('SCOUTVAULT_STORE_FILE')){
+  gradle=gradle.replace('    signingConfigs {',`    signingConfigs {
+        release {
+            def signingPath = System.getenv('SCOUTVAULT_STORE_FILE')
+            if (signingPath) {
+                storeFile file(signingPath)
+                storePassword System.getenv('SCOUTVAULT_STORE_PASSWORD')
+                keyAlias 'scoutvault'
+                keyPassword System.getenv('SCOUTVAULT_KEY_PASSWORD')
+            }
+        }`);
+  gradle=gradle.replace(/(buildTypes\s*\{[\s\S]*?release\s*\{[\s\S]*?)signingConfig signingConfigs.debug/,'$1signingConfig signingConfigs.release');
+  await writeFile(gradlePath,gradle);
 }
 await mkdir('.local/android-signing',{recursive:true,mode:0o700});
 let passwords;

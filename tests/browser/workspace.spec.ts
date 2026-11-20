@@ -58,6 +58,9 @@ test('buyer and scout complete a funded check through the real API', async ({ pa
   await expect(page.getByText('Photo hash and wallet signature match')).toBeVisible();
   await page.getByRole('button',{name:'Review and pay scout',exact:true}).click();await page.getByRole('button',{name:'Approve and pay scout',exact:true}).click();
   await expect(page.getByText('2 TEST USDC paid',{exact:true})).toBeVisible();
+  await page.reload();
+  await expect(page.getByText('2 TEST USDC paid',{exact:true})).toBeVisible({timeout:30000});
+  await expect(page.getByText('Photo hash and wallet signature match')).toBeVisible();
   const review = await new AxeBuilder({page}).analyze();
   expect(review.violations.map(item=>({id:item.id,targets:item.nodes.map(node=>node.target)}))).toEqual([]);
   await page.screenshot({path:'reports/payout-review.png',fullPage:true});

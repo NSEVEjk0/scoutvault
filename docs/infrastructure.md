@@ -6,6 +6,8 @@ There are three separate databases. The intended devnet deployment uses `postgre
 
 Local receipts open Solana Explorer with the custom HTTPS RPC selected. Devnet receipts select devnet. The local demo refreshes through the API. The devnet database has Supabase Realtime configured for its public feed. Report photos remain in private Supabase Storage and require participant authorization through the API.
 
+Explorer asks for confirmation before reading an unfamiliar custom RPC. Select **Connect** only when its displayed server matches the demo gateway in `gateway.json`. The local ledger retains a bounded history, so older local receipts can be pruned. The video records a fresh, readable receipt. Increasing retention does not restore receipts that were already pruned.
+
 ## Firecrawl attribution
 
 Firecrawl runs as a separate, unmodified service under its [AGPL-3.0 license](https://github.com/firecrawl/firecrawl/blob/f96a5154660165061d5b1defa0091bee28571f5d/LICENSE). Its pinned image corresponds to [source revision f96a515](https://github.com/firecrawl/firecrawl/tree/f96a5154660165061d5b1defa0091bee28571f5d). ScoutVault calls its HTTP scraping API. The Docker Compose configuration adjusts startup commands, networks, resource limits, and the public-web proxy. It does not alter Firecrawl's application source. The [complete upstream source](https://github.com/firecrawl/firecrawl/tree/f96a5154660165061d5b1defa0091bee28571f5d) is available to people using the hosted listing reader.
@@ -27,7 +29,7 @@ The API enables test payments only after the configured executable program, escr
 
 ## Android release
 
-Use Node 24, JDK 21, and the Android SDK. The current APK targets Android API 36 and arm64 devices. After installing `mobile/` dependencies and generating Android sources with Expo, run:
+Use Node 24, JDK 21, and the Android SDK. The Android build compiles with the stable Android API 37.0 SDK and targets API 36 on arm64 devices. After installing `mobile/` dependencies and generating Android sources with Expo, run:
 
 ```sh
 node scripts/prepare-android.mjs

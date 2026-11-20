@@ -1,14 +1,19 @@
-import { chromium,expect } from '@playwright/test';
+import { chromium,expect as baseExpect } from '@playwright/test';
 import { mkdir,readFile,writeFile } from 'node:fs/promises';
 
 const root=new URL('../',import.meta.url);
+const expect=baseExpect.configure({timeout:30000});
 const appUrl=process.env.SCOUTVAULT_DEMO_URL??'https://scoutvault-checks.vercel.app/?demo=local';
 const sourceUrl=new URL('/listings/akoka-studio.html',appUrl).href;
-const title=`Demo: Akoka studio ${Date.now()}`;
+const title='Check the Akoka studio';
 const directory=new URL('.local/demo-recording/',root);
 await mkdir(directory,{recursive:true,mode:0o700});
 const browser=await chromium.launch({headless:true});
 const context=await browser.newContext({viewport:{width:1280,height:800},recordVideo:{dir:directory.pathname,size:{width:1280,height:800}}});
+try{
+  const demo=JSON.parse(await readFile(new URL('sessions.json',directory),'utf8'));
+  await context.addInitScript(({demo,origin})=>{if(location.origin===origin){sessionStorage.setItem('scoutvault-local-demo',JSON.stringify(demo));sessionStorage.setItem('scoutvault-local-demo-id',demo.demoId);}}, {demo,origin:new URL(appUrl).origin});
+}catch(error){if(error.code!=='ENOENT')throw error;}
 await context.addInitScript(()=>{
   document.addEventListener('DOMContentLoaded',()=>{
     const cursor=document.createElement('div');
@@ -21,6 +26,7 @@ const page=await context.newPage();
 page.setDefaultTimeout(25000);
 let receipt;
 page.on('response',async response=>{
+  if(new URL(response.url()).pathname==='/api/demo/session'&&response.ok())await writeFile(new URL('sessions.json',directory),JSON.stringify(await response.json()),{mode:0o600});
   if(new URL(response.url()).pathname.match(/\/bounties\/[^/]+\/confirm$/)&&response.ok()){
     const value=await response.json();
     if(value.payoutSignature)receipt={bountyId:value.id,network:'localnet',token:value.tokenSymbol,amount:value.reward,
@@ -59,7 +65,7 @@ try{
   await page.getByRole('button',{name:'Close dialog',exact:true}).click();
   await page.getByRole('button',{name:'Scout',exact:true}).click();
   await page.getByRole('link',{name:'Scout map',exact:true}).click();
-  await page.getByRole('button',{name:title,exact:true}).click();
+  await page.getByRole('button',{name:title,exact:true}).first().click();
   await page.getByRole('button',{name:'Claim this check',exact:true}).click();
   await expect(page.getByRole('button',{name:'Capture field report',exact:true})).toBeVisible();
   await page.getByRole('button',{name:'Play brief',exact:true}).hover();await until(85);
@@ -77,22 +83,23 @@ try{
   await expect(page.getByText('Photo hash and wallet signature match')).toBeVisible();
   await page.getByRole('button',{name:'Close dialog',exact:true}).click();
   await page.getByRole('button',{name:'Buyer',exact:true}).click();
-  await page.getByRole('button',{name:title,exact:true}).click();
+  await page.getByRole('button',{name:title,exact:true}).first().click();
   await expect(page.getByText('Photo hash and wallet signature match')).toBeVisible();
   await page.locator('.report-results').scrollIntoViewIfNeeded();await page.waitForTimeout(4500);
   await page.getByRole('button',{name:'Review and pay scout',exact:true}).click();await page.waitForTimeout(2000);
   await page.getByRole('button',{name:'Approve and pay scout',exact:true}).click();
-  await expect(page.getByText('2 TEST USDC paid',{exact:true})).toBeVisible();await until(133);
+  await expect(page.getByText('2 TEST USDC paid',{exact:true})).toBeVisible({timeout:30000});await until(133);
   mark('Open the actual payout receipt');
   const explorer=await page.getByRole('link',{name:'View payout on Solana Explorer',exact:false}).getAttribute('href');
   if(!explorer?.includes('cluster=custom'))throw new Error('The receipt must select the actual local network.');
   await page.goto(explorer,{waitUntil:'domcontentloaded'});
+  await page.getByRole('button',{name:'Connect',exact:true}).click();
   await expect(page.getByText('Success',{exact:true}).first()).toBeVisible({timeout:35000});
   await page.screenshot({path:new URL('reports/explorer-local.png',root).pathname});
   await until(145);
   mark('Show the paid check and remaining checks');
   await page.goto(new URL(`/?demo=local&view=requests&bounty=${bountyId}`,appUrl).href);
-  await expect(page.getByText('2 TEST USDC paid',{exact:true})).toBeVisible();
+  await expect(page.getByText('2 TEST USDC paid',{exact:true})).toBeVisible({timeout:30000});
   await until(Math.max(150,(Date.now()-started)/1000+5));
   if(!receipt)throw new Error('A verified payout receipt was not recorded.');
   const duration=(Date.now()-started)/1000;

@@ -48,7 +48,7 @@ export async function buildServer(){
     await sql`select 1`;const block=await connection.getLatestBlockhash('confirmed');const program=await connection.getAccountInfo(PROGRAM_ID);
     return {ok:true,database:true,network:config.network,programDeployed:!!program?.executable,blockhash:block.blockhash};
   });
-  const allowedRpc=new Set(['getLatestBlockhash','getAccountInfo','getMultipleAccounts','getBalance','getTokenAccountBalance','getTokenAccountsByOwner','sendTransaction','simulateTransaction','getSignatureStatuses','getTransaction','getBlockHeight','getSlot','getGenesisHash']);
+  const allowedRpc=new Set(['getLatestBlockhash','getAccountInfo','getMultipleAccounts','getBalance','getTokenAccountBalance','getTokenAccountsByOwner','sendTransaction','simulateTransaction','getSignatureStatuses','getTransaction','getBlockHeight','getSlot','getGenesisHash','getEpochSchedule']);
   app.post('/api/rpc',async(request,reply)=>{
     const body=z.object({jsonrpc:z.literal('2.0'),id:z.union([z.string(),z.number()]),method:z.string(),params:z.array(z.unknown()).optional()}).parse(request.body);
     if(!allowedRpc.has(body.method))return reply.code(400).send({error:'This RPC method is not available.'});
