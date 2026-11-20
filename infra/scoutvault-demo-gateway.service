@@ -1,0 +1,19 @@
+[Unit]
+Description=ScoutVault local demonstration TLS gateway
+After=network-online.target scoutvault-demo-api.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/root/scoutvault
+ExecStart=/usr/bin/python3 /root/scoutvault/scripts/serve-gateway.py --mode local
+Restart=always
+RestartSec=8
+KillMode=control-group
+NoNewPrivileges=true
+PrivateTmp=true
+StandardOutput=append:/root/scoutvault/.local/demo-gateway-service.log
+StandardError=append:/root/scoutvault/.local/demo-gateway-service.log
+
+[Install]
+WantedBy=multi-user.target

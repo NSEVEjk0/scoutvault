@@ -1,0 +1,23 @@
+{
+  "name": "scoutvault-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.18.0" },
+  "scripts": { "start": "node --env-file=../.local/deployment.env index.mjs", "test": "node --test ../tests/server/*.test.mjs" },
+  "dependencies": {
+    "fastify": "5.12.8",
+    "@fastify/cors": "11.4.3",
+    "@fastify/multipart": "10.1.9",
+    "@fastify/rate-limit": "11.3.0",
+    "@fastify/http-proxy": "11.6.10",
+    "@fastify/static": "10.1.12",
+    "jose": "6.2.18",
+    "postgres": "3.4.7",
+    "sharp": "0.35.5",
+    "@supabase/supabase-js": "2.119.2",
+    "zod": "^4.1.12",
+    "bs58": "6.0.0",
+    "tweetnacl": "1.0.3"
+  }
+}

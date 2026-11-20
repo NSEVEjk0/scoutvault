@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "name": "ScoutVault",
+    "slug": "scoutvault",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "android": {
+      "package": "com.scoutvault.app",
+      "versionCode": 1,
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION"
+      ],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#164f40"
+      },
+      "allowBackup": false,
+      "blockedPermissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.VIBRATE",
+        "android.permission.RECORD_AUDIO"
+      ]
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "ScoutVault uses the camera to capture the field report you choose to submit.",
+          "recordAudioAndroid": false
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "ScoutVault attaches your location only when you choose a nearby search or capture a field report."
+        }
+      ],
+      "expo-status-bar",
+      "react-native-quick-crypto"
+    ],
+    "extra": {
+      "webOrigin": "https://scoutvault-checks.vercel.app",
+      "rpcEndpoint": "https://api.devnet.solana.com"
+    },
+    "icon": "./assets/icon.png"
+  }
+}

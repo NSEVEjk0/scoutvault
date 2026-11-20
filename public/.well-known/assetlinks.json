@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.scoutvault.app",
+      "sha256_cert_fingerprints": [
+        "5D:BE:62:94:E7:28:82:03:B8:3A:F2:5B:26:43:D1:B1:96:E3:DB:2F:E9:4C:C5:53:ED:C8:2E:18:6B:0B:E6:67"
+      ]
+    }
+  }
+]

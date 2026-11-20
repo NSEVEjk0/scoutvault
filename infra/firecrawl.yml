@@ -1,0 +1,98 @@
+name: scoutvault-firecrawl
+services:
+  egress:
+    image: node:24-alpine
+    command: ["node", "/app/infra/egress-proxy.mjs"]
+    volumes:
+      - ./egress-proxy.mjs:/app/infra/egress-proxy.mjs:ro
+      - ../server/url-security.mjs:/app/server/url-security.mjs:ro
+      - ../server/errors.mjs:/app/server/errors.mjs:ro
+    networks: [internal,egress]
+    restart: unless-stopped
+    mem_limit: 128m
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: [ALL]
+  api:
+    image: ghcr.io/firecrawl/firecrawl@sha256:d50e15c1c9ce3a85f48c2bd52029fbb50eb906e66217821d16f0f59c029f1726
+    command: ["node", "dist/src/harness.js", "--start-docker"]
+    restart: unless-stopped
+    ports: ["127.0.0.1:45486:3002"]
+    depends_on: [redis,rabbitmq,nuq-postgres,playwright-service,egress]
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3002
+      ENV: local
+      IS_KUBERNETES: "true"
+      NODE_OPTIONS: --max-old-space-size=768
+      REDIS_URL: redis://redis:6379
+      REDIS_RATE_LIMIT_URL: redis://redis:6379
+      PLAYWRIGHT_MICROSERVICE_URL: http://playwright-service:3000/scrape
+      NUQ_RABBITMQ_URL: amqp://rabbitmq:5672
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${SCOUTVAULT_FIRECRAWL_DB_PASSWORD}
+      POSTGRES_DB: postgres
+      POSTGRES_HOST: nuq-postgres
+      POSTGRES_PORT: 5432
+      USE_DB_AUTHENTICATION: "false"
+      NUM_WORKERS_PER_QUEUE: 1
+      CRAWL_CONCURRENT_REQUESTS: 1
+      MAX_CONCURRENT_JOBS: 1
+      BROWSER_POOL_SIZE: 1
+      PROXY_SERVER: http://egress:1080
+      HTTP_PROXY: http://egress:1080
+      HTTPS_PROXY: http://egress:1080
+      NO_PROXY: redis,rabbitmq,nuq-postgres,playwright-service
+      HARNESS_STARTUP_TIMEOUT_MS: 120000
+      MAX_CPU: 0.95
+      MAX_RAM: 0.97
+    networks: [internal,egress]
+    mem_limit: 1536m
+    cpus: 1.5
+    memswap_limit: 3g
+    logging: { driver: json-file, options: { max-size: 10m, max-file: "3" } }
+  playwright-service:
+    image: ghcr.io/firecrawl/playwright-service@sha256:3af678b1e9451ff5ad2fdbc4e327dd591754a9eb41b693fda712210542831b45
+    restart: unless-stopped
+    command: ["node", "dist/api.js"]
+    environment:
+      PORT: 3000
+      PROXY_SERVER: http://egress:1080
+      MAX_CONCURRENT_PAGES: 1
+      BLOCK_MEDIA: "true"
+      NODE_OPTIONS: --max-old-space-size=384
+    networks: [internal,egress]
+    mem_limit: 768m
+    cpus: 1.0
+    memswap_limit: 1536m
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: [ALL]
+  redis:
+    image: redis:7.4-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--maxmemory", "128mb", "--maxmemory-policy", "noeviction"]
+    networks: [internal]
+    mem_limit: 160m
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    restart: unless-stopped
+    environment:
+      RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: +S 2:2 +SDcpu 1 +SDio 1
+    networks: [internal]
+    mem_limit: 256m
+    memswap_limit: 512m
+  nuq-postgres:
+    image: ghcr.io/firecrawl/nuq-postgres@sha256:5a0be88215431b8dd57ae5d701ee191521cd1ac8e882a65558ae95c4587c57cb
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${SCOUTVAULT_FIRECRAWL_DB_PASSWORD}
+      POSTGRES_DB: postgres
+    volumes: ["scoutvault-firecrawl-db:/var/lib/postgresql/data"]
+    networks: [internal]
+    mem_limit: 256m
+    memswap_limit: 512m
+networks:
+  internal: { internal: true }
+  egress: {}
+volumes:
+  scoutvault-firecrawl-db:

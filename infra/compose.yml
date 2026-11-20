@@ -1,0 +1,115 @@
+name: scoutvault
+services:
+  db:
+    image: supabase/postgres:17.6.1.136
+    container_name: scoutvault-db
+    restart: unless-stopped
+    ports: ["127.0.0.1:45482:5432"]
+    environment:
+      POSTGRES_HOST: /var/run/postgresql
+      POSTGRES_USER: postgres
+      PGPORT: 5432
+      POSTGRES_PORT: 5432
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: postgres
+      PGDATABASE: postgres
+      JWT_SECRET: ${SUPABASE_JWT_SECRET}
+      JWT_EXP: 3600
+    volumes:
+      - scoutvault-db:/var/lib/postgresql/data
+      - scoutvault-db-config:/etc/postgresql-custom
+      - ../.local/supabase/realtime.sql:/docker-entrypoint-initdb.d/migrations/99-realtime.sql:ro
+      - ../.local/supabase/roles.sql:/docker-entrypoint-initdb.d/init-scripts/99-roles.sql:ro
+      - ../.local/supabase/jwt.sql:/docker-entrypoint-initdb.d/init-scripts/99-jwt.sql:ro
+      - ../.local/supabase/_supabase.sql:/docker-entrypoint-initdb.d/migrations/97-_supabase.sql:ro
+      - ./schema.sql:/docker-entrypoint-initdb.d/init-scripts/100-scoutvault.sql:ro
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    command: ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf", "-c", "log_min_messages=warning", "-c", "max_connections=80"]
+    mem_limit: 512m
+    memswap_limit: 1g
+    logging: { driver: json-file, options: { max-size: 10m, max-file: "3" } }
+
+  rest:
+    image: postgrest/postgrest:v14.18
+    container_name: scoutvault-rest
+    restart: unless-stopped
+    depends_on: { db: { condition: service_healthy } }
+    ports: ["127.0.0.1:45483:3000"]
+    environment:
+      PGRST_DB_URI: postgres://authenticator:${POSTGRES_PASSWORD}@db:5432/postgres
+      PGRST_DB_SCHEMAS: public,storage
+      PGRST_DB_ANON_ROLE: anon
+      PGRST_JWT_SECRET: ${SUPABASE_JWT_SECRET}
+      PGRST_DB_USE_LEGACY_GUCS: "false"
+      PGRST_DB_POOL: 8
+    mem_limit: 128m
+    memswap_limit: 256m
+
+  realtime:
+    image: supabase/realtime:v2.148.3
+    container_name: realtime-dev.scoutvault-realtime
+    restart: unless-stopped
+    depends_on: { db: { condition: service_healthy } }
+    ports: ["127.0.0.1:45484:4000"]
+    environment:
+      PORT: 4000
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: supabase_admin
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: postgres
+      DB_AFTER_CONNECT_QUERY: SET search_path TO _realtime
+      DB_ENC_KEY: ${REALTIME_DB_ENC_KEY}
+      API_JWT_SECRET: ${SUPABASE_JWT_SECRET}
+      SECRET_KEY_BASE: ${REALTIME_SECRET_KEY_BASE}
+      METRICS_JWT_SECRET: ${SUPABASE_JWT_SECRET}
+      ERL_AFLAGS: -proto_dist inet_tcp
+      ERL_FLAGS: +S 2:2 +SDcpu 1 +SDio 1
+      GEN_RPC_SOCKET_IP: 127.0.0.1
+      CLUSTER_STRATEGIES: ""
+      RLIMIT_NOFILE: "10000"
+      APP_NAME: realtime
+      SEED_SELF_HOST: "true"
+      RUN_JANITOR: "true"
+      DISABLE_HEALTHCHECK_LOGGING: "true"
+    volumes:
+      - ../.local/supabase/realtime-entrypoint.sh:/docker-entrypoint.sh:ro
+    entrypoint: ["/bin/sh", "/docker-entrypoint.sh"]
+    command: ["/app/bin/server"]
+    mem_limit: 512m
+    memswap_limit: 1g
+
+  storage:
+    image: supabase/storage-api:v1.89.12
+    container_name: scoutvault-storage
+    restart: unless-stopped
+    depends_on: { db: { condition: service_healthy }, rest: { condition: service_started } }
+    ports: ["127.0.0.1:45485:5000"]
+    environment:
+      ANON_KEY: ${SUPABASE_ANON_KEY}
+      SERVICE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+      POSTGREST_URL: http://rest:3000
+      AUTH_JWT_SECRET: ${SUPABASE_JWT_SECRET}
+      DATABASE_URL: postgres://supabase_storage_admin:${POSTGRES_PASSWORD}@db:5432/postgres
+      FILE_SIZE_LIMIT: 5242880
+      STORAGE_BACKEND: file
+      FILE_STORAGE_BACKEND_PATH: /var/lib/storage
+      GLOBAL_S3_BUCKET: scoutvault
+      TENANT_ID: scoutvault
+      REGION: local
+      ENABLE_IMAGE_TRANSFORMATION: "false"
+      STORAGE_PUBLIC_URL: ${PUBLIC_API_ORIGIN}/supabase
+    volumes: ["scoutvault-storage:/var/lib/storage"]
+    mem_limit: 384m
+    memswap_limit: 768m
+    logging: { driver: json-file, options: { max-size: 10m, max-file: "3" } }
+
+volumes:
+  scoutvault-db:
+  scoutvault-db-config:
+  scoutvault-storage:

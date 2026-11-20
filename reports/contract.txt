@@ -1,0 +1,52 @@
+TAP version 13
+# Subtest: funding locks the exact reward and approval pays the assigned scout once
+ok 1 - funding locks the exact reward and approval pays the assigned scout once
+  ---
+  duration_ms: 4206.62897
+  type: 'test'
+  ...
+# Subtest: a buyer cannot claim their own check and a second scout cannot take a claimed check
+ok 2 - a buyer cannot claim their own check and a second scout cannot take a claimed check
+  ---
+  duration_ms: 2711.629906
+  type: 'test'
+  ...
+# Subtest: only the assigned scout can submit and only the buyer can approve
+ok 3 - only the assigned scout can submit and only the buyer can approve
+  ---
+  duration_ms: 3158.108596
+  type: 'test'
+  ...
+# Subtest: payout is rejected when the scout changes the report after buyer review
+ok 4 - payout is rejected when the scout changes the report after buyer review
+  ---
+  duration_ms: 3998.510629
+  type: 'test'
+  ...
+# Subtest: an open check refunds to its buyer and its completed id cannot be reused
+ok 5 - an open check refunds to its buyer and its completed id cannot be reused
+  ---
+  duration_ms: 2715.10847
+  type: 'test'
+  ...
+# Subtest: a submitted report cannot be refunded and only the recorded arbiter resolves disputes
+ok 6 - a submitted report cannot be refunded and only the recorded arbiter resolves disputes
+  ---
+  duration_ms: 4109.618339
+  type: 'test'
+  ...
+# Subtest: unsolicited vault donations do not block payout or keep rent locked
+ok 7 - unsolicited vault donations do not block payout or keep rent locked
+  ---
+  duration_ms: 4060.667022
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 27511.693003

@@ -1,0 +1,899 @@
+{
+  "address": "Bs6t2UmHXvxE3WF1upyXTpSkehhUxin7wzZt1c2G8MNV",
+  "metadata": {
+    "name": "scout_vault",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Reviewed field-report token escrow"
+  },
+  "instructions": [
+    {
+      "name": "initialize",
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "arbiter",
+          "type": "pubkey"
+        }
+      ],
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ]
+    },
+    {
+      "name": "create",
+      "accounts": [
+        {
+          "name": "buyer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "buyer_record",
+          "writable": true
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "escrow",
+          "writable": true
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "buyer_tokens",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "rent"
+        }
+      ],
+      "args": [
+        {
+          "name": "bounty_id",
+          "type": "u64"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "expires_at",
+          "type": "i64"
+        },
+        {
+          "name": "listing_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ],
+      "discriminator": [
+        24,
+        30,
+        200,
+        40,
+        5,
+        28,
+        7,
+        119
+      ]
+    },
+    {
+      "name": "claim",
+      "accounts": [
+        {
+          "name": "scout",
+          "signer": true
+        },
+        {
+          "name": "escrow",
+          "writable": true
+        }
+      ],
+      "args": [],
+      "discriminator": [
+        62,
+        198,
+        214,
+        193,
+        213,
+        159,
+        108,
+        210
+      ]
+    },
+    {
+      "name": "submit_report",
+      "accounts": [
+        {
+          "name": "scout",
+          "signer": true
+        },
+        {
+          "name": "escrow",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "proof_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ],
+      "discriminator": [
+        27,
+        178,
+        64,
+        9,
+        20,
+        46,
+        250,
+        14
+      ]
+    },
+    {
+      "name": "approve",
+      "accounts": [
+        {
+          "name": "buyer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "escrow",
+          "writable": true
+        },
+        {
+          "name": "scout"
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "scout_tokens",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "expected_proof_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ],
+      "discriminator": [
+        69,
+        74,
+        217,
+        36,
+        115,
+        117,
+        97,
+        76
+      ]
+    },
+    {
+      "name": "refund",
+      "accounts": [
+        {
+          "name": "buyer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "escrow",
+          "writable": true
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "buyer_tokens",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [],
+      "discriminator": [
+        2,
+        96,
+        183,
+        251,
+        63,
+        208,
+        46,
+        46
+      ]
+    },
+    {
+      "name": "dispute",
+      "accounts": [
+        {
+          "name": "buyer",
+          "signer": true
+        },
+        {
+          "name": "escrow",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "reason_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ],
+      "discriminator": [
+        216,
+        92,
+        128,
+        146,
+        202,
+        85,
+        135,
+        73
+      ]
+    },
+    {
+      "name": "resolve",
+      "accounts": [
+        {
+          "name": "arbiter",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "buyer",
+          "writable": true
+        },
+        {
+          "name": "scout"
+        },
+        {
+          "name": "escrow",
+          "writable": true
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "buyer_tokens",
+          "writable": true
+        },
+        {
+          "name": "scout_tokens",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "pay_scout",
+          "type": "bool"
+        }
+      ],
+      "discriminator": [
+        246,
+        150,
+        236,
+        206,
+        108,
+        63,
+        58,
+        10
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Config",
+      "discriminator": [
+        155,
+        12,
+        170,
+        224,
+        30,
+        250,
+        204,
+        130
+      ]
+    },
+    {
+      "name": "BuyerRecord",
+      "discriminator": [
+        107,
+        122,
+        54,
+        31,
+        4,
+        54,
+        209,
+        38
+      ]
+    },
+    {
+      "name": "Escrow",
+      "discriminator": [
+        31,
+        213,
+        123,
+        187,
+        186,
+        22,
+        218,
+        155
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "Configured",
+      "discriminator": [
+        33,
+        54,
+        80,
+        14,
+        177,
+        137,
+        82,
+        235
+      ]
+    },
+    {
+      "name": "Funded",
+      "discriminator": [
+        67,
+        84,
+        56,
+        88,
+        192,
+        12,
+        201,
+        177
+      ]
+    },
+    {
+      "name": "Claimed",
+      "discriminator": [
+        217,
+        192,
+        123,
+        72,
+        108,
+        150,
+        248,
+        33
+      ]
+    },
+    {
+      "name": "ReportSubmitted",
+      "discriminator": [
+        30,
+        14,
+        109,
+        53,
+        161,
+        40,
+        129,
+        244
+      ]
+    },
+    {
+      "name": "Paid",
+      "discriminator": [
+        240,
+        193,
+        17,
+        238,
+        238,
+        210,
+        129,
+        235
+      ]
+    },
+    {
+      "name": "Refunded",
+      "discriminator": [
+        35,
+        103,
+        149,
+        246,
+        196,
+        123,
+        221,
+        99
+      ]
+    },
+    {
+      "name": "ReportDisputed",
+      "discriminator": [
+        15,
+        188,
+        5,
+        217,
+        135,
+        8,
+        52,
+        233
+      ]
+    },
+    {
+      "name": "DisputeResolved",
+      "discriminator": [
+        121,
+        64,
+        249,
+        153,
+        139,
+        128,
+        236,
+        187
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "Config",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "arbiter",
+            "type": "pubkey"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BuyerRecord",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "buyer",
+            "type": "pubkey"
+          },
+          {
+            "name": "last_id",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Escrow",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "version",
+            "type": "u8"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "vault_bump",
+            "type": "u8"
+          },
+          {
+            "name": "status",
+            "type": "u8"
+          },
+          {
+            "name": "buyer",
+            "type": "pubkey"
+          },
+          {
+            "name": "scout",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "arbiter",
+            "type": "pubkey"
+          },
+          {
+            "name": "bounty_id",
+            "type": "u64"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "expires_at",
+            "type": "i64"
+          },
+          {
+            "name": "claimed_at",
+            "type": "i64"
+          },
+          {
+            "name": "submitted_at",
+            "type": "i64"
+          },
+          {
+            "name": "listing_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "proof_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "dispute_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Configured",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "arbiter",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Funded",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bounty_id",
+            "type": "u64"
+          },
+          {
+            "name": "escrow",
+            "type": "pubkey"
+          },
+          {
+            "name": "buyer",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "expires_at",
+            "type": "i64"
+          },
+          {
+            "name": "listing_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Claimed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bounty_id",
+            "type": "u64"
+          },
+          {
+            "name": "escrow",
+            "type": "pubkey"
+          },
+          {
+            "name": "scout",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ReportSubmitted",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bounty_id",
+            "type": "u64"
+          },
+          {
+            "name": "escrow",
+            "type": "pubkey"
+          },
+          {
+            "name": "scout",
+            "type": "pubkey"
+          },
+          {
+            "name": "proof_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "submitted_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Paid",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bounty_id",
+            "type": "u64"
+          },
+          {
+            "name": "escrow",
+            "type": "pubkey"
+          },
+          {
+            "name": "buyer",
+            "type": "pubkey"
+          },
+          {
+            "name": "scout",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "pledged_amount",
+            "type": "u64"
+          },
+          {
+            "name": "transferred_amount",
+            "type": "u64"
+          },
+          {
+            "name": "proof_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Refunded",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bounty_id",
+            "type": "u64"
+          },
+          {
+            "name": "escrow",
+            "type": "pubkey"
+          },
+          {
+            "name": "buyer",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ReportDisputed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bounty_id",
+            "type": "u64"
+          },
+          {
+            "name": "escrow",
+            "type": "pubkey"
+          },
+          {
+            "name": "buyer",
+            "type": "pubkey"
+          },
+          {
+            "name": "reason_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "arbiter",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "DisputeResolved",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bounty_id",
+            "type": "u64"
+          },
+          {
+            "name": "escrow",
+            "type": "pubkey"
+          },
+          {
+            "name": "arbiter",
+            "type": "pubkey"
+          },
+          {
+            "name": "buyer",
+            "type": "pubkey"
+          },
+          {
+            "name": "scout",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "pay_scout",
+            "type": "bool"
+          }
+        ]
+      }
+    }
+  ]
+}

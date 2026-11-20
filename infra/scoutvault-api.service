@@ -1,0 +1,20 @@
+[Unit]
+Description=ScoutVault wallet, listing, and report API
+After=network-online.target docker.service
+Wants=network-online.target
+Requires=docker.service
+
+[Service]
+Type=simple
+WorkingDirectory=/root/scoutvault/server
+ExecStart=/usr/bin/node --env-file=/root/scoutvault/.local/deployment.env /root/scoutvault/server/index.mjs
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+Environment=NODE_ENV=production
+StandardOutput=append:/root/scoutvault/.local/api-runtime.log
+StandardError=append:/root/scoutvault/.local/api-runtime.log
+
+[Install]
+WantedBy=multi-user.target

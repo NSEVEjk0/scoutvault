@@ -1,0 +1,17 @@
+[Unit]
+Description=ScoutVault local demonstration validator
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/root/scoutvault
+ExecStart=/usr/bin/node /root/scoutvault/scripts/start-validator.mjs
+Restart=always
+RestartSec=5
+KillMode=control-group
+NoNewPrivileges=true
+StandardOutput=append:/root/scoutvault/.local/validator-runtime.log
+StandardError=append:/root/scoutvault/.local/validator-runtime.log
+
+[Install]
+WantedBy=multi-user.target

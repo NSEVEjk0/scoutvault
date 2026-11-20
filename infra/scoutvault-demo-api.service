@@ -1,0 +1,20 @@
+[Unit]
+Description=ScoutVault local demonstration API
+After=scoutvault-validator.service docker.service
+Requires=docker.service
+Wants=scoutvault-validator.service
+
+[Service]
+Type=simple
+WorkingDirectory=/root/scoutvault/server
+ExecStart=/usr/bin/node --env-file=/root/scoutvault/.local/local-demo.env /root/scoutvault/server/index.mjs
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+Environment=NODE_ENV=production
+StandardOutput=append:/root/scoutvault/.local/demo-api-runtime.log
+StandardError=append:/root/scoutvault/.local/demo-api-runtime.log
+
+[Install]
+WantedBy=multi-user.target

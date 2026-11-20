@@ -1,0 +1,20 @@
+{
+  "network": "localnet",
+  "passed": true,
+  "bountyId": "1abb098a-d564-4c14-8ff3-9a642de60e35",
+  "scoutPayout": 2,
+  "token": "TEST USDC",
+  "checks": [
+    "funded escrow",
+    "private location redaction",
+    "claim",
+    "signed camera-report bytes",
+    "anonymous photo blocked",
+    "stored photo hash preserved",
+    "exact report approval",
+    "exact token balance increase"
+  ],
+  "fundingSignature": "3eu7Jdvzrao6zVTnaD44tX9VDTbPaM8FkDybMBVCv7MQ8ukC3yLrFWrgUMe7CTysDtisv56Uz6wDAfgey1DHA4fP",
+  "reportSignature": "3e7y5o352ZvBfpw1TFYfb4cKhzuvjU94mJXhjZGaw9qZbMGqdGjUgJNG15tMrEs85qH6rYhwPa2vxNCxGaWrepy5",
+  "payoutSignature": "5TCaeKfw3JzE7Pvs98pSMTVhMhKkyRCdxt4CiPR1SVXbubB7TnCxZWkn9HiZQnbWzjLb5RGCiu2CGFy8DRkffi1D"
+}
