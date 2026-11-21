@@ -16,4 +16,4 @@ jobs:
       - run: npm ci
       - run: npm --prefix server ci
       - run: npm run build
-      - run: node --test tests/server/security.test.mjs
+      - run: node --test tests/server/*.test.mjs

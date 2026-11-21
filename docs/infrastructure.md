@@ -1,12 +1,12 @@
 # Hosting and development networks
 
-The website is hosted at [scoutvault-checks.vercel.app](https://scoutvault-checks.vercel.app). Vercel serves the interface and a configuration bootstrap. The API, Supabase services, Firecrawl, and local demonstration validator run on the project's VPS. API listeners bind to loopback. Cloudflare provides HTTPS endpoints, and `gateway.json` records their current addresses. The configuration bootstrap reads that public registry so a restarted tunnel does not require rebuilding the website.
+The website is hosted at [scoutvault-checks.vercel.app](https://scoutvault-checks.vercel.app). Vercel serves the interface and a configuration bootstrap. The devnet API, Supabase services, and Firecrawl run on the project's VPS. API listeners bind to loopback. Cloudflare provides HTTPS endpoints, and `gateway.json` records their current addresses. The configuration bootstrap reads that public registry so a restarted tunnel does not require rebuilding the website.
 
-There are three separate databases. The intended devnet deployment uses `postgres`. Automated local checks use `scoutvault_test`. The public **Local Solana demo** uses `scoutvault_demo`. Local-demo requests must include `?demo=local` when opening the app. The interface retains that mode during navigation, labels it throughout, and keeps its demo sessions separate from devnet sessions. It uses the compiled Anchor program on a local validator. It is not public Solana devnet. Compatible phone and browser wallets are offered in devnet mode.
+The intended devnet deployment uses `postgres`. Automated local checks used the separate `scoutvault_test` database, and the recorded local demonstration used `scoutvault_demo`. Local sessions were kept separate from devnet sessions and labelled throughout. After testing and recording were complete, the local validator, ledger, API, and gateway were retired on November 21, 2026 at the user's request. Old `?demo=local` website links open the recording; the local configuration endpoint returns HTTP 410 rather than contacting a stopped gateway. Compatible phone and browser wallets remain available in devnet mode.
 
-Local receipts open Solana Explorer with the custom HTTPS RPC selected. Devnet receipts select devnet. The local demo refreshes through the API. The devnet database has Supabase Realtime configured for its public feed. Report photos remain in private Supabase Storage and require participant authorization through the API.
+The video shows an actual local payout in Solana Explorer with the custom HTTPS RPC selected. That RPC is no longer online and its old receipts cannot be queried. Future devnet receipts select devnet. The devnet database has Supabase Realtime configured for its public feed. Report photos remain in private Supabase Storage and require participant authorization through the API.
 
-Explorer asks for confirmation before reading an unfamiliar custom RPC. Select **Connect** only when its displayed server matches the demo gateway in `gateway.json`. The local ledger retains a bounded history, so older local receipts can be pruned. The video records a fresh, readable receipt. Increasing retention does not restore receipts that were already pruned.
+The source and published APK, video, compiled program, and signing keys were retained. Unused local build caches and downloaded SDK archives were removed. Rebuilding Android requires installing its SDK, JDK, and dependencies again. Local validator SOL stays on that local network; it does not fund the public devnet deployment.
 
 ## Firecrawl attribution
 
@@ -16,7 +16,7 @@ The Supabase and Firecrawl containers use separate private database credentials.
 
 ## Activate devnet
 
-Only free devnet SOL is used. The deployment wallet is `9YaY8NLqutg5FkBKCypWGQ3wFUhpE4F3jPqLUwBwfPxo`. The [official faucet](https://faucet.solana.com/?walletAddress=9YaY8NLqutg5FkBKCypWGQ3wFUhpE4F3jPqLUwBwfPxo&amount=5&cluster=devnet) requires a browser CAPTCHA. The compiled program needs approximately 2.1 test SOL for rent with upgrade headroom, plus initialization and demo funding.
+Only free devnet SOL is used. The deployment wallet is `9YaY8NLqutg5FkBKCypWGQ3wFUhpE4F3jPqLUwBwfPxo`. The [official faucet](https://faucet.solana.com) directs agents to programmatic CLI requests, a provider RPC, or the proof-of-work faucet. The CLI request was rate-limited at the last check. The proof-of-work program was executable, but its available rewards could not cover the mining costs or the deployment. No miner was started. The compiled program needs approximately 2.1 test SOL for rent with upgrade headroom, plus initialization and demo funding.
 
 After funding, deploy `.local/deploy/scout_vault.so` with the matching private program keypair, the deployer keypair, an explicit devnet RPC, and a maximum program length of 411696 bytes. Then run:
 

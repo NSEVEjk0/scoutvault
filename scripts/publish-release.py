@@ -31,6 +31,8 @@ except urllib.error.HTTPError as error:
     if error.code!=404:raise
     release=call(repository+'/releases','POST',{'tag_name':'v0.1.0','target_commitish':'main',
         'name':'ScoutVault 0.1.0 — development demo','body':notes,'draft':False,'prerelease':True})
+if release.get('body')!=notes:
+    release=call(repository+'/releases/'+str(release['id']),'PATCH',{'body':notes})
 uploaded=[]
 for path,mime in artifacts:
     data=path.read_bytes()

@@ -19,3 +19,5 @@ Tests must exercise meaningful behavior: token balances and escrow authorization
 The demo must be strictly under three minutes. Aim for 2:30 and no more than 370 spoken words. Show the app immediately, keep at least 60% of the video on the working product, and show the resulting transaction in Solana Explorer. No editor or terminal footage. Draft a two-column storyboard with timestamps and the matching spoken sentence.
 
 Keep the working implementation, test reports, deployment instructions, and public README accurate. Do not submit to the hackathon or publish a video to someone else's account without the user's instruction.
+
+The user retired the public local validator and its ledger on November 21 after testing and recording were complete, because the host was running short of disk space. Keep those retired services stopped. Use the verified compiled program, APK, and video for devnet activation. Avoid reinstalling a local validator or large SDK/build caches as a workaround for unavailable devnet funding. Check a faucet's current balance and requirements before starting mining or installing its dependencies.

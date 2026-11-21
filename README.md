@@ -8,7 +8,9 @@ The same flow works for a used laptop advertised by a local shop, a campus vendo
 
 ## Try it
 
-Open the [local demo](https://scoutvault-checks.vercel.app/?demo=local), choose **Connect wallet → Try with test funds**, and create a check. The demo gives you a buyer and scout wallet so you can follow both sides without installing a browser wallet. Sample listings and illustrations are labelled. Test tokens have no cash value.
+Open [ScoutVault](https://scoutvault-checks.vercel.app) to explore the interface and read a public listing. Public devnet escrow is waiting for test SOL. The [2:30 captioned walkthrough](https://scoutvault-checks.vercel.app/demo/) shows the complete funded journey recorded during testing on a local Solana validator. That local service has been retired to reduce host resource use. Sample listings and illustrations are labelled. Test tokens have no cash value.
+
+Once devnet settlement is activated, the flow is:
 
 1. Paste a public listing URL. Firecrawl reads it and proposes a short checklist. Edit the questions before funding.
 2. Put the pin at the entrance and choose the reward. The Solana program holds the tokens.
@@ -18,7 +20,7 @@ Open the [local demo](https://scoutvault-checks.vercel.app/?demo=local), choose 
 
 The written checklist is always available. **Play brief** uses browser or device speech when a voice is installed. It is opt-in and needs no provider API key.
 
-The [website](https://scoutvault-checks.vercel.app), [captioned walkthrough](https://scoutvault-checks.vercel.app/demo/), and [Android release](https://github.com/NSEVEjk0/scoutvault/releases/tag/v0.1.0) are public. The local demo uses a separate local Solana validator and database. The intended public devnet escrow is waiting for test SOL. Local receipts select the custom network in Solana Explorer. Test payments are disabled in devnet mode until initialization is complete.
+The website, captioned walkthrough, and [Android release](https://github.com/NSEVEjk0/scoutvault/releases/tag/v0.1.0) are public. The walkthrough records an actual local-network payout in Solana Explorer. Its former custom RPC is no longer online. Test payments remain disabled in devnet mode until initialization is complete.
 
 ## Why the escrow matters
 
