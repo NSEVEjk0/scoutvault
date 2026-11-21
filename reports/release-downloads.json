@@ -1,0 +1,27 @@
+{
+  "checkedAt": "2026-11-21T02:29:29.754285+00:00",
+  "release": "https://github.com/NSEVEjk0/scoutvault/releases/tag/v0.1.0",
+  "assets": [
+    {
+      "name": "scoutvault-android.apk",
+      "sha256": "393662c18e7530a5987b252f09d339b7aded8d314f55ce3115baeb63bb3b84e5",
+      "bytes": 52793883,
+      "contentType": "application/vnd.android.package-archive",
+      "downloadVerified": true
+    },
+    {
+      "name": "scoutvault-demo.mp4",
+      "sha256": "92bc3c13588ab3b1d9e314ebfac8cecd3c06b73644996029da222de44a2aacc0",
+      "bytes": 3775116,
+      "contentType": "application/octet-stream",
+      "downloadVerified": true
+    },
+    {
+      "name": "scout_vault.so",
+      "sha256": "79b0f142fda837be9a4c3892f99cc56e77575a6610dbd9df55791c4db4b79dc1",
+      "bytes": 346160,
+      "contentType": "application/octet-stream",
+      "downloadVerified": true
+    }
+  ]
+}

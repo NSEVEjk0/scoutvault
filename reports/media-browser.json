@@ -1,0 +1,34 @@
+{
+  "checkedAt": "2026-11-21T03:13:06.211Z",
+  "site": "https://scoutvault-checks.vercel.app",
+  "localDemoRetired": true,
+  "views": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 1024
+      },
+      "retiredRouteRedirect": true,
+      "duration": 150,
+      "currentTime": 0.917,
+      "paused": false,
+      "error": null,
+      "horizontalOverflow": false,
+      "captions": true
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "retiredRouteRedirect": true,
+      "duration": 150,
+      "currentTime": 0.9635,
+      "paused": false,
+      "error": null,
+      "horizontalOverflow": false,
+      "captions": true
+    }
+  ],
+  "mainAppAvailable": true
+}
