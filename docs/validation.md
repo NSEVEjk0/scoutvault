@@ -4,6 +4,10 @@ On November 26, 2026, the verified compiled Anchor program was deployed to publi
 
 The current video shows that devnet run with English narration and captions. The labelled illustration and software wallets provide a reproducible demo. [Public walkthrough](https://scoutvault-checks.vercel.app/demo/) · [Video verification](../reports/demo-devnet.json).
 
+The hosted retest passed all three browser cases after a mobile navigation contrast fix. The checks covered desktop and phone layouts, keyboard focus, reduced motion, and a new funded request through buyer approval and page reload. The signed report remained verifiable after refresh. Public Solana RPC confirmed finality for funding, claim, report, and approval. The scout's balance rose from 10 to 12 TEST USDC. The public bounty view omitted the exact entrance address and private report. [Retest results](../reports/devnet-browser-retest.json) · [New payout in Solana Explorer](https://explorer.solana.com/tx/RiBo6N74ojadMqeTAEpUchesqeKLmJKTuSNudPhKWBNb2ZeDExSWpRhskpDYbvQYBfh6VQRsPBvZ7WyfazD9PcY?cluster=devnet)
+
+The production build and all six server tests passed. `npm test` runs the server suite. The narrated walkthrough played with English captions on desktop and phone after the update. The published APK hash and website certificate fingerprint matched the verified release. [Hosting check](../reports/hosted.json) · [Playback check](../reports/media-devnet.json) · [Android verification](../reports/android.json)
+
 The original public release checks ran November 21. The separate local validator and its ledger retired after the local recording was complete. The November 21 reports below describe that earlier setup.
 
 The compiled Anchor program passed [seven local-validator scenarios](../reports/contract.txt): exact funding and payout, buyer self-claim rejection, exclusive scout assignment, report and payment authorization, changed-report rejection, refund and ID-reuse protection, dispute authority, and unsolicited vault donations. Several checks run within the same scenario.

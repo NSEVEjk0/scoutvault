@@ -24,6 +24,7 @@
 :root{--muted:#59665d}
 .brand-caption,.nav-link,.network-tag,.eyebrow,.count-pill,.filter,.feed-empty p,.how-card li>span,.how-card li p,.how-link,.search-field kbd,.card-reward span,.map-price>span,.map-caption,.map-stats span,.muted,.hero-row p,.panel-heading>div>span,.category-label,.bounty-card-main p,.bounty-card-bottom,.feed-note,.map-heading>div>span,.workspace-footer,.field-hint,.edit-check p,.source-receipt a,.source-receipt>span:last-child,.funding-summary>div,.funding-summary p,.review-note p,.detail-reward small,.detail-address p,.detail-checks p,.escrow-links,.report-review figcaption,.report-review>.small,.report-results>div,.report-review blockquote,.wallet-choice p,.wallet-summary span,.wallet-balances span,.camera-empty p,.capture-instruction p,.location-receipt,.waiting-note,.step-tabs,.report-check p,.guide-copy p,.payout-receipt p{color:#59665d}
 .nav-active,.filter-active,.step-tabs .step-active{color:#164f40}
+.mobile-nav button:not(.mobile-nav-active){color:var(--muted)}
 .map-heading strong{color:#405547}
 .source-receipt strong,.receipt-label,.check-number,.report-check legend,.detail-checks strong,.capture-instruction strong,.camera-empty strong,.wallet-choice strong,.wallet-summary strong,.wallet-balances strong,.payout-receipt,.payout-receipt a,.map-stats strong,.card-receipt,.text-link{color:#3d5e3e}
 .answer-options label{color:#4b6138}.answer-options .answer-selected{color:#164f40}

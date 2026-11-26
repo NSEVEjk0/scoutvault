@@ -16,6 +16,7 @@
 | Android | [Signed APK release](https://github.com/NSEVEjk0/scoutvault/releases/tag/v0.1.0) |
 | Images | [Desktop](../reports/desktop.png), [phone](../reports/phone.png), [paid report](../reports/payout-devnet.png) |
 | Devnet payout | [Finalized transaction in Solana Explorer](https://explorer.solana.com/tx/3zSVqcCExnJiLqKwrtcEPzsxdhnuWQi3LKJLvwjnDB3PHXycJvsbXvBdo2qfsFBpwX2txAyxFN1RqRBA7iyw7ZXm?cluster=devnet) |
+| Public retest | [Browser results and latest finalized payout](../reports/devnet-browser-retest.json) |
 
 The walkthrough shows the signed sample report, buyer approval, and a finalized two-token payout on public Solana devnet. [Storyboard](demo-storyboard.md) · [Verification](validation.md).
 

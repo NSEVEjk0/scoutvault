@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-11-26T11:17:38.381Z",
+  "site": "https://scoutvault-checks.vercel.app",
+  "network": "devnet",
+  "serverTestsPassed": 6,
+  "browserTests": [
+    {
+      "name": "desktop and phone layouts remain usable and accessible",
+      "passed": true
+    },
+    {
+      "name": "reduced motion disables drawer animation and keeps keyboard focus",
+      "passed": true
+    },
+    {
+      "name": "buyer and scout complete a funded check through the real API",
+      "passed": true
+    }
+  ],
+  "payout": {
+    "checkedAt": "2026-11-26T11:17:38.381Z",
+    "source": "https://scoutvault-checks.vercel.app",
+    "rpc": "https://api.devnet.solana.com",
+    "network": "devnet",
+    "bountyId": "43f66b80-8791-4ad5-a9bd-01ab4d39e029",
+    "mint": "AfQZsan7BBV5q7EvcJsWXaE6Vefk7fevg4ctb9AMEJGD",
+    "programId": "Bs6t2UmHXvxE3WF1upyXTpSkehhUxin7wzZt1c2G8MNV",
+    "scoutWallet": "EL9w14kgJZmn6WXi6EyNkY34kEwXviP8jmVwMFJgysSK",
+    "token": "TEST USDC",
+    "amount": 2,
+    "fundingSignature": "44KWksmNZwqd2u3b3JFYGnoWkAFdvpHDjtt1go6B98jBTFvPk3SEeRGWKrPtBrbjd8bBoUaBFQmRUPUysiv2MsGH",
+    "claimSignature": "5k7GnHxaxZNnqPzQcLK9DH1NQLCiwpbfMMxYPujxybdY6cvLXb1mnqZCuaQSv66HYmivFRkrxhDpADWbKpdQgWhN",
+    "reportSignature": "6uW2M37ss7PgaPG87BauMFpUbwSs4yP3J8NmQnL3yxaAHUJFnYpqKLqcnSZAkyevR26sEQ3t58ru9QVrojePHWo",
+    "payoutSignature": "RiBo6N74ojadMqeTAEpUchesqeKLmJKTuSNudPhKWBNb2ZeDExSWpRhskpDYbvQYBfh6VQRsPBvZ7WyfazD9PcY",
+    "scoutBalance": {
+      "before": 10,
+      "after": 12
+    },
+    "privateReportFieldsAbsentFromPublicDetail": true,
+    "payoutSlot": 526490821,
+    "finalized": true,
+    "explorer": "https://explorer.solana.com/tx/RiBo6N74ojadMqeTAEpUchesqeKLmJKTuSNudPhKWBNb2ZeDExSWpRhskpDYbvQYBfh6VQRsPBvZ7WyfazD9PcY?cluster=devnet"
+  }
+}
