@@ -53,7 +53,7 @@ export function CreateBounty({ open, onClose, onCreated, onConnect, notify }: {
 
   const prepareFunding = async (event: React.FormEvent) => {
     event.preventDefault(); setError('');
-    if (!wallet.config?.settlementReady) { setError('Test payments are being set up. Your checklist is ready to review.'); return; }
+    if (!wallet.config?.settlementReady) return;
     if (!wallet.session) { onConnect(); return; }
     if (!baseline || !address.trim() || !title.trim()) { setError('Add a title and the entrance address so the scout knows what to check.'); return; }
     if (!baseline.checklist.every(check => check.question.trim().length >= 8)) { setError('Write a clear question for every check.'); return; }
@@ -104,7 +104,8 @@ export function CreateBounty({ open, onClose, onCreated, onConnect, notify }: {
       <div className="field"><div className="field-heading"><label>Place the pin at the entrance</label><Button variant="ghost" type="button" className="small-button" onClick={() => void currentLocation().then(setPoint).catch(error => notify(error.message))}><LocateFixed size={15} aria-hidden />Use my location</Button></div><ScoutMap bounties={[]} center={point} onPick={setPoint} small /><p className="field-hint">Tap the entrance on the map. The public feed shows an approximate location.</p></div>
       <div className="form-columns three-columns"><Field label="Category" id="bounty-category"><select id="bounty-category" name="bounty-category" value={category} onChange={event => setCategory(event.target.value as typeof category)}><option value="housing">Housing</option><option value="shop">Shop or vendor</option><option value="campus">Campus claim</option></select></Field><Field label="Bounty (TEST USDC)" id="bounty-reward"><input id="bounty-reward" name="bounty-reward" type="number" inputMode="decimal" min="0.5" max="25" step="0.5" required value={reward} onChange={event => setReward(event.target.value)} /></Field><Field label="Check expires in" id="bounty-expiry"><select id="bounty-expiry" name="bounty-expiry" value={hours} onChange={event => setHours(event.target.value)}><option value="1">1 hour</option><option value="6">6 hours</option><option value="24">24 hours</option><option value="48">48 hours</option></select></Field></div>
       {error && <p className="field-error" role="alert">{error}</p>}
-      <div className="dialog-actions"><Button variant="ghost" type="button" onClick={() => setStep(0)} disabled={busy}><ArrowLeft size={16} aria-hidden />Back</Button><Button type="submit" disabled={busy}>{busy ? <Spinner label="Preparing bounty…" /> : <>Review funding <ArrowRight size={17} aria-hidden /></>}</Button></div>
+      {!wallet.config?.settlementReady && <p className="inline-notice">Devnet funding will appear here when payments are enabled.</p>}
+      <div className="dialog-actions"><Button variant="ghost" type="button" onClick={() => setStep(0)} disabled={busy}><ArrowLeft size={16} aria-hidden />Back</Button>{wallet.config?.settlementReady ? <Button type="submit" disabled={busy}>{busy ? <Spinner label="Preparing bounty…" /> : <>Review funding <ArrowRight size={17} aria-hidden /></>}</Button> : <a className="button button-secondary" href="/demo/" target="_blank" rel="noreferrer">Watch the payout demo <ExternalLink size={15} aria-hidden /></a>}</div>
     </form>}
     {step === 2 && prepared && <div className="dialog-body">
       <div className="intro-icon"><CircleDollarSign size={26} aria-hidden /></div><h3>Hold the reward until you review.</h3><p className="muted">The token program holds the bounty. You release it after checking the scout’s signed report.</p>

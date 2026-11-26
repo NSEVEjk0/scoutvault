@@ -1,0 +1,87 @@
+{
+  "durationSeconds": 150.021333,
+  "narrationWords": 206,
+  "englishCaptions": true,
+  "narration": "synthetic voice",
+  "readableExplorerSeconds": 12,
+  "sampleImage": true,
+  "physicalSeekerTest": false,
+  "sha256": "b306b6f680a85dea1b4d447fefbd0586c0cf894c76acf4ec577f8d51e5369c06",
+  "receipt": {
+    "checkedAt": "2026-11-26T10:33:50.483Z",
+    "network": "devnet",
+    "bountyId": "0b0b46ef-52d2-47af-9904-3fe72a531091",
+    "programId": "Bs6t2UmHXvxE3WF1upyXTpSkehhUxin7wzZt1c2G8MNV",
+    "mint": "AfQZsan7BBV5q7EvcJsWXaE6Vefk7fevg4ctb9AMEJGD",
+    "scoutWallet": "23YDgsuMYnY2ytK6w1pojsMCCtsfbFT6VUP5JC7hWnYT",
+    "token": "TEST USDC",
+    "amount": "2",
+    "fundingSignature": "47rYVDVx5rgxsVodqYm7eKz5wYohAVNFoYn3iRaTpFnGpEw6zRecd2cJaZZBsMjW98wU9cJ8HfSeQyrYYQwG7vb8",
+    "claimSignature": "PoAy2jFwjwY3TpdnkzHWpopZUgtFAog8FXyecvP7RyCgpAXYwnfWUQ3E2dH9fhDcPCWxf4kUs2hn8Q4csxwJLTE",
+    "reportSignature": "3M1JHUqa4Qr2Phzd34Rvezd4JhNYMn7kne6xTyksFxVw7Copt6SzQcUonhx551Ze671CrzLNmij5YuLMfwYSzh5a",
+    "payoutSignature": "3zSVqcCExnJiLqKwrtcEPzsxdhnuWQi3LKJLvwjnDB3PHXycJvsbXvBdo2qfsFBpwX2txAyxFN1RqRBA7iyw7ZXm",
+    "scoutBalance": {
+      "before": 10,
+      "after": 12
+    },
+    "payoutSlot": 526479384,
+    "finalized": true,
+    "explorer": "https://explorer.solana.com/tx/3zSVqcCExnJiLqKwrtcEPzsxdhnuWQi3LKJLvwjnDB3PHXycJvsbXvBdo2qfsFBpwX2txAyxFN1RqRBA7iyw7ZXm?cluster=devnet"
+  },
+  "scenes": [
+    {
+      "start": 0,
+      "duration": 15,
+      "source": "page@e3d62b62f4bf1341e1bd983e677ba0f3.webm",
+      "startInSource": 2
+    },
+    {
+      "start": 15,
+      "duration": 10,
+      "source": "page@e3d62b62f4bf1341e1bd983e677ba0f3.webm",
+      "startInSource": 17
+    },
+    {
+      "start": 25,
+      "duration": 20,
+      "source": "page@e3d62b62f4bf1341e1bd983e677ba0f3.webm",
+      "startInSource": 25
+    },
+    {
+      "start": 45,
+      "duration": 20,
+      "source": "page@e3d62b62f4bf1341e1bd983e677ba0f3.webm",
+      "startInSource": 45
+    },
+    {
+      "start": 65,
+      "duration": 20,
+      "source": "page@e3d62b62f4bf1341e1bd983e677ba0f3.webm",
+      "startInSource": 65
+    },
+    {
+      "start": 85,
+      "duration": 23,
+      "source": "page@e3d62b62f4bf1341e1bd983e677ba0f3.webm",
+      "startInSource": 85
+    },
+    {
+      "start": 108,
+      "duration": 25,
+      "source": "page@e3d62b62f4bf1341e1bd983e677ba0f3.webm",
+      "startInSource": 108
+    },
+    {
+      "start": 133,
+      "duration": 12,
+      "source": "page@d45d8b327bd224fbe16ca5361b63ce10.webm",
+      "startInSource": 9.202
+    },
+    {
+      "start": 145,
+      "duration": 5,
+      "source": "page@6a0a727389da18c70e71334358fdf051.webm",
+      "startInSource": 3.181
+    }
+  ]
+}

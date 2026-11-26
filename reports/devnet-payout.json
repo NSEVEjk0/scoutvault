@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-11-26T10:33:50.483Z",
+  "network": "devnet",
+  "bountyId": "0b0b46ef-52d2-47af-9904-3fe72a531091",
+  "programId": "Bs6t2UmHXvxE3WF1upyXTpSkehhUxin7wzZt1c2G8MNV",
+  "mint": "AfQZsan7BBV5q7EvcJsWXaE6Vefk7fevg4ctb9AMEJGD",
+  "scoutWallet": "23YDgsuMYnY2ytK6w1pojsMCCtsfbFT6VUP5JC7hWnYT",
+  "token": "TEST USDC",
+  "amount": "2",
+  "fundingSignature": "47rYVDVx5rgxsVodqYm7eKz5wYohAVNFoYn3iRaTpFnGpEw6zRecd2cJaZZBsMjW98wU9cJ8HfSeQyrYYQwG7vb8",
+  "claimSignature": "PoAy2jFwjwY3TpdnkzHWpopZUgtFAog8FXyecvP7RyCgpAXYwnfWUQ3E2dH9fhDcPCWxf4kUs2hn8Q4csxwJLTE",
+  "reportSignature": "3M1JHUqa4Qr2Phzd34Rvezd4JhNYMn7kne6xTyksFxVw7Copt6SzQcUonhx551Ze671CrzLNmij5YuLMfwYSzh5a",
+  "payoutSignature": "3zSVqcCExnJiLqKwrtcEPzsxdhnuWQi3LKJLvwjnDB3PHXycJvsbXvBdo2qfsFBpwX2txAyxFN1RqRBA7iyw7ZXm",
+  "scoutBalance": {
+    "before": 10,
+    "after": 12
+  },
+  "payoutSlot": 526479384,
+  "finalized": true,
+  "explorer": "https://explorer.solana.com/tx/3zSVqcCExnJiLqKwrtcEPzsxdhnuWQi3LKJLvwjnDB3PHXycJvsbXvBdo2qfsFBpwX2txAyxFN1RqRBA7iyw7ZXm?cluster=devnet"
+}

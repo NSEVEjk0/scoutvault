@@ -2,9 +2,9 @@
 
 The website is hosted at [scoutvault-checks.vercel.app](https://scoutvault-checks.vercel.app). Vercel serves the interface and a configuration bootstrap. The devnet API, Supabase services, and Firecrawl run on the project's VPS. API listeners bind to loopback. Cloudflare provides HTTPS endpoints, and `gateway.json` records their current addresses. The configuration bootstrap reads that public registry so a restarted tunnel does not require rebuilding the website.
 
-The intended devnet deployment uses `postgres`. Automated local checks used the separate `scoutvault_test` database, and the recorded local demonstration used `scoutvault_demo`. Local sessions were kept separate from devnet sessions and labelled throughout. After testing and recording were complete, the local validator, ledger, API, and gateway were retired on November 21, 2026 at the user's request. Old `?demo=local` website links open the recording; the local configuration endpoint returns HTTP 410 rather than contacting a stopped gateway. Compatible phone and browser wallets remain available in devnet mode.
+The public devnet deployment uses `postgres`. Automated local checks used the separate `scoutvault_test` database, and the original local demonstration used `scoutvault_demo`. The local validator, ledger, API, and gateway retired on November 21, 2026. Old `?demo=local` website links open the current recorded demo. The local configuration endpoint returns HTTP 410.
 
-The video shows an actual local payout in Solana Explorer with the custom HTTPS RPC selected. That RPC is no longer online and its old receipts cannot be queried. Future devnet receipts select devnet. The devnet database has Supabase Realtime configured for its public feed. Report photos remain in private Supabase Storage and require participant authorization through the API.
+The current video shows a finalized payout in Solana Explorer with devnet selected. The devnet database uses Supabase Realtime for the public feed. Report photos stay in private Supabase Storage and require participant authorization through the API.
 
 The source and published APK, video, compiled program, and signing keys were retained. Unused local build caches and downloaded SDK archives were removed. Rebuilding Android requires installing its SDK, JDK, and dependencies again. Local validator SOL stays on that local network; it does not fund the public devnet deployment.
 
@@ -16,16 +16,17 @@ The Supabase and Firecrawl containers use separate private database credentials.
 
 ## Activate devnet
 
-Only free devnet SOL is used. The deployment wallet is `9YaY8NLqutg5FkBKCypWGQ3wFUhpE4F3jPqLUwBwfPxo`. The [official faucet](https://faucet.solana.com) directs agents to programmatic CLI requests, a provider RPC, or the proof-of-work faucet. The CLI request was rate-limited at the last check. The proof-of-work program was executable, but its available rewards could not cover the mining costs or the deployment. No miner was started. The compiled program needs approximately 2.1 test SOL for rent with upgrade headroom, plus initialization and demo funding.
+The deployment wallet is `9YaY8NLqutg5FkBKCypWGQ3wFUhpE4F3jPqLUwBwfPxo`. It received 20 test SOL on November 26. The program and project test mint are active. [Official faucet](https://faucet.solana.com) · [GitHub sign-in faucet](https://www.devnetfaucet.org/) · [Deployment transaction](https://explorer.solana.com/tx/3mvSS3BWPFjitcAWXjbJeL1Qz2WMXRwk2asta9xB55BnsApeSUava5Xd7sLojLSG5QUA7zhaTUwyCE4XHqUQNDpT?cluster=devnet).
 
-After funding, deploy `.local/deploy/scout_vault.so` with the matching private program keypair, the deployer keypair, an explicit devnet RPC, and a maximum program length of 411696 bytes. Then run:
+Budget **3 devnet SOL** to cover roughly 2.1 SOL for program rent plus deployment fees, escrow and mint setup, and a few demo wallets. The deployment command checks the cluster, program key, binary hash, and available balance. It keeps a private buffer key so the upload can resume.
 
 ```sh
-node --env-file=.local/deployment.env scripts/init-chain.mjs
+node --env-file=.local/deployment.env scripts/deploy-devnet.mjs
+node --env-file=.local/deployment.env scripts/deploy-devnet.mjs --apply
 npm run test:live
 ```
 
-The API enables test payments only after the configured executable program, escrow configuration, and mint exist. Verify a complete funding, report, approval, and payout journey on devnet before describing public devnet settlement as working.
+The first command checks readiness. `--apply` deploys the verified binary and initializes the mint and escrow. The API enables test payments once those accounts exist. Run a complete buyer and scout flow and confirm the payout in Solana Explorer.
 
 ## Android release
 

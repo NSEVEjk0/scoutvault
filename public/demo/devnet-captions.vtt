@@ -1,0 +1,40 @@
+WEBVTT
+
+00:00:00.180 --> 00:00:07.956
+A rental listing can promise running water without showing the tank.
+ScoutVault lets you ask someone nearby to check the place before you send
+a deposit.
+
+00:00:15.180 --> 00:00:22.644
+This sample studio in Akoka lists an address, a yearly price, and a water
+tank. I’m using test tokens on Solana devnet.
+
+00:00:25.180 --> 00:00:34.060
+I paste the listing link. Firecrawl reads the page, and ScoutVault turns
+those three details into questions. I can edit each question and move the
+entrance pin.
+
+00:00:45.180 --> 00:00:53.244
+I set the reward at two test tokens. The Solana program holds them for
+this check, so the scout can see the reward is funded before accepting.
+
+00:01:05.180 --> 00:01:12.764
+I switch to the scout wallet and claim the check. Only one scout can
+claim it. The scout can read the questions or have the device read them
+aloud.
+
+00:01:25.180 --> 00:01:32.860
+The scout answers each question and attaches a photo. Here I’m using a
+labelled illustration. The water tank stays marked as unconfirmed.
+
+00:01:48.180 --> 00:01:56.820
+The scout signs the report. ScoutVault checks the photo and signature
+against what was submitted. The requester sees the answers and approves
+this exact report.
+
+00:02:13.180 --> 00:02:20.212
+The scout’s balance increases by two tokens. Solana Explorer shows the
+devnet payout and its confirmed transaction.
+
+00:02:25.180 --> 00:02:28.612
+The requester now has the signed report and the payout receipt.

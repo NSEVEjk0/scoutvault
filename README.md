@@ -1,50 +1,43 @@
 # ScoutVault
 
-Check the place before you pay.
+Ask someone nearby to check a listing before you send a deposit.
 
-A rental page can look convincing while its address, price, or water supply is wrong. ScoutVault lets a requester choose a few things to check, fund a small bounty, and ask someone nearby to visit the place. The scout sends a photo and a signed report. The requester reads it before releasing payment.
+[Open ScoutVault](https://scoutvault-checks.vercel.app) · [Watch the 2:30 walkthrough](https://scoutvault-checks.vercel.app/demo/) · [Download Android](https://github.com/NSEVEjk0/scoutvault/releases/tag/v0.1.0) · [Solana devnet program](https://explorer.solana.com/address/Bs6t2UmHXvxE3WF1upyXTpSkehhUxin7wzZt1c2G8MNV?cluster=devnet)
 
-The same flow works for a used laptop advertised by a local shop, a campus vendor, or another claim that someone can inspect in person. The request stays small: a clear place, a short checklist, and a defined reward.
+![ScoutVault’s public map and listing checklist on desktop](reports/desktop.png)
 
-## Try it
+## What a listing leaves out
 
-Open [ScoutVault](https://scoutvault-checks.vercel.app) to explore the interface and read a public listing. Public devnet escrow is waiting for test SOL. The [2:30 captioned walkthrough](https://scoutvault-checks.vercel.app/demo/) shows the complete funded journey recorded during testing on a local Solana validator. That local service has been retired to reduce host resource use. Sample listings and illustrations are labelled. Test tokens have no cash value.
+A student looking for a room near campus sees a price, an address, and a promise of running water. A phone call can repeat those claims. A person nearby can check the entrance, ask what the rent covers, and look for the advertised water tank.
 
-Once devnet settlement is activated, the flow is:
+ScoutVault gives that person a short checklist and sets aside a reward before they go. The requester reads the signed report before approving payment.
 
-1. Paste a public listing URL. Firecrawl reads it and proposes a short checklist. Edit the questions before funding.
-2. Put the pin at the entrance and choose the reward. The Solana program holds the tokens.
-3. Switch to the scout, claim the check, and answer each question. Use the camera for a field report, or the labelled sample illustration in the demo.
-4. Sign the report. The photo hash, answers, check code, and location metadata are bound to the signing wallet and bounty.
-5. Switch to the buyer. ScoutVault checks that the downloaded photo and report match their hashes and wallet signature. Read the report, then approve the payout.
+## From listing to payout
 
-The written checklist is always available. **Play brief** uses browser or device speech when a voice is installed. It is opt-in and needs no provider API key.
+1. Paste a public link. Firecrawl reads it. ScoutVault turns details such as the address, price, and amenities into an editable checklist.
+2. Mark the entrance on the map and choose a reward. The Anchor program on Solana holds the tokens for that check.
+3. A scout claims the check, answers the questions, and adds a photo. The scout signs a report tied to the bounty. On Android, a compatible wallet signs through Mobile Wallet Adapter.
+4. The requester reviews the photo and answers. Their approval names the exact report hash. The program releases the reward and the app links to the transaction receipt.
 
-The website, captioned walkthrough, and [Android release](https://github.com/NSEVEjk0/scoutvault/releases/tag/v0.1.0) are public. The walkthrough records an actual local-network payout in Solana Explorer. Its former custom RPC is no longer online. Test payments remain disabled in devnet mode until initialization is complete.
+The checklist is available as text. **Play brief** reads it aloud with a browser or device voice. The public map uses approximate pins. The participants can open the private report and photo.
 
-## Why the escrow matters
+## Try the sample listing
 
-The buyer funds a specific reward before the scout accepts the work. The program checks which wallet can claim, submit, approve, or refund that bounty. Approval includes the exact report hash, so a scout cannot replace a reviewed report while payment is pending. Completed bounty IDs cannot be reused, and payout closes the escrow and token vault.
+Open **Connect wallet → Try with test funds** for a demo buyer and scout. Choose **Create a check → Read listing** to see the three checks for the sample studio. Fund the check, switch to the scout to send the sample report, then switch back to review and pay. The walkthrough follows this flow on Solana devnet. [Sample listing](https://scoutvault-checks.vercel.app/listings/akoka-studio.html) · [Finalized payout](https://explorer.solana.com/tx/3zSVqcCExnJiLqKwrtcEPzsxdhnuWQi3LKJLvwjnDB3PHXycJvsbXvBdo2qfsFBpwX2txAyxFN1RqRBA7iyw7ZXm?cluster=devnet).
 
-An unclaimed check can be cancelled. A claimed check without a report can be refunded after expiry. A dispute keeps the reward in escrow until the review wallet recorded in the bounty resolves it. The buyer sees that review rule before funding.
+[Verification record](docs/validation.md) · [Hosting and devnet setup](docs/infrastructure.md) · [Report and location data](docs/privacy.md)
 
-## What a signature proves
+## What the report can establish
 
-A signature binds the report's bytes to a wallet. It does not prove that GPS is genuine, that an image depicts a real visit, that a signer is a verified student, or that a listing is safe. The fresh check code helps the buyer assess the report, but buyer review remains part of the payment rule.
+The wallet signature ties the submitted answers and photo hash to the signing wallet and bounty. The requester still decides whether the answers and photo are enough to pay. The recording uses a labelled sample image and software test wallets. [How request and dispute approval work](docs/architecture.md).
 
-On Android, Mobile Wallet Adapter asks a compatible wallet to authorize signing. Seeker's Seed Vault Wallet can protect its keys through Seed Vault. Seed Vault does not attest camera sensors or GPS. ScoutVault does not claim otherwise.
+## Work before the event
 
-## What is built
+The web app, Android client, Anchor escrow, listing reader, and hosted devnet demo were built before the November 27 Dev3Pack kickoff. [Commit history](https://github.com/NSEVEjk0/scoutvault/commits/main/) · [Dev3Pack FAQ](https://hack.dev3pack.xyz/faq).
 
-The web app includes the listing reader, editable checklist, nearby map, wallet login, funded requests, scout reports, photo and signature verification, buyer review, refunds, and transaction receipts. The Android client shares those screens and adds the native camera, foreground location permission, device speech, and mobile wallet signing.
+## Run it locally
 
-Supabase PostgreSQL stores the audit trail, PostGIS searches within two kilometres, Realtime updates the public feed, and private Storage keeps report photos. Public pins are rounded. Exact report coordinates and photos are available to the participants through authenticated routes.
-
-Firecrawl and Supabase are self-hosted on the project's VPS. Public listing URLs go to the listing reader. Wallet keys and private notes are not sent with them. Browser/device voice replaces the originally proposed ElevenLabs integration.
-
-## Run locally
-
-Use Node 24, Docker Compose, and the Solana build tools. The Android build also needs JDK 21 and the Android SDK. Each package has its own lockfile.
+Use Node 24, Docker Compose, and Solana build tools. The Android build also needs JDK 21 and the Android SDK.
 
 ```sh
 npm ci
@@ -55,9 +48,7 @@ docker compose --env-file .local/deployment.env -f infra/compose.yml up -d
 docker compose --env-file .local/deployment.env -f infra/firecrawl.yml up -d
 ```
 
-The setup script creates private credentials under `.local`. It retains them on repeat runs and does not print them. Do not commit that directory or an environment file.
-
-Compile the Anchor program with `cargo-build-sbf --manifest-path contracts/programs/scout_vault/Cargo.toml --sbf-out-dir .local/deploy`, start `node scripts/start-validator.mjs`, then run:
+Compile the Anchor program with `cargo-build-sbf --manifest-path contracts/programs/scout_vault/Cargo.toml --sbf-out-dir .local/deploy`. Then start `node scripts/start-validator.mjs` in its own terminal.
 
 ```sh
 node scripts/setup-local-test.mjs
@@ -66,30 +57,6 @@ cd server
 node --env-file=../.local/local-test.env index.mjs
 ```
 
-In another terminal, run `SCOUTVAULT_API_PROXY=http://127.0.0.1:45580 npm run dev`. The isolated test database and validator keep local transactions out of the public deployment.
+From the repository root, start `SCOUTVAULT_API_PROXY=http://127.0.0.1:45580 npm run dev`. For checks and Android packaging, see [Validation](docs/validation.md) and [Hosting](docs/infrastructure.md). Keep the generated `.local/` files private.
 
-## Validation
-
-The contract tests execute the compiled program on a local Solana validator. They check exact balances, unauthorized claim and report attempts, swapped reports, refunds, completed-ID reuse, disputed payouts, and unsolicited token donations. The API exercise follows a complete funded check through private photo storage and payout. Browser checks cover the same journey, phone layouts, keyboard use, and reduced motion.
-
-```sh
-npm run test:contract
-node --test tests/server/security.test.mjs
-node scripts/exercise-flow.mjs
-npm run test:e2e
-npm run build
-```
-
-See [validation](docs/validation.md) and [hosting instructions](docs/infrastructure.md) for the actual results and network used. A build or emulator does not establish a physical Seed Vault test. This is a development-network prototype, not an audited mainnet payment service.
-
-## Project map
-
-* `src/` — responsive web interface and browser wallet/camera integration.
-* `mobile/` — Android camera, location, speech, and Mobile Wallet Adapter bridge.
-* `server/` — wallet authentication, listing capture, report access, and verified transaction synchronization.
-* `contracts/` — Anchor token escrow.
-* `shared/` — report format and escrow client IDL.
-* `infra/` — Supabase, Firecrawl, and database access policies.
-* `docs/` — architecture, privacy, validation, and the short demo storyboard.
-
-The project follows [AGENTS.md](AGENTS.md) and [STYLE_GUIDE.md](STYLE_GUIDE.md) for plain copy, restrained design, accessible motion, and a demo strictly under three minutes.
+[MIT license](LICENSE) · [Dev3Pack checklist](docs/submission.md)

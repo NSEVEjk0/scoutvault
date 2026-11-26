@@ -30,7 +30,7 @@ test('buyer and scout complete a funded check through the real API', async ({ pa
   const source=JSON.parse(await readFile('gateway.json','utf8')).endpoint+'/listings/akoka-studio.html';
   await page.goto(process.env.SCOUTVAULT_BROWSER_URL ?? '/');await page.getByRole('button',{name:'Connect wallet',exact:true}).click();await page.getByRole('button',{name:'Try with test funds',exact:false}).click();
   await expect(page.getByText('Demo wallet · test tokens only')).toBeVisible();
-  await page.getByRole('button',{name:'Create a check',exact:true}).click();
+  await page.locator('.hero-row').getByRole('button',{name:'Create a check',exact:true}).click();
   await page.getByLabel('Listing URL').fill(source);
   await page.getByRole('button',{name:'Read listing',exact:true}).click();
   await expect(page.getByText('Listing read with Firecrawl')).toBeVisible({timeout:70000});

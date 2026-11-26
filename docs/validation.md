@@ -1,6 +1,10 @@
 # Validation record
 
-The final public release checks ran on November 21, 2026 against [scoutvault-checks.vercel.app](https://scoutvault-checks.vercel.app) and the [v0.1.0 release](https://github.com/NSEVEjk0/scoutvault/releases/tag/v0.1.0). The production deployment is ready. The recorded payout demonstration uses the explicitly labelled local Solana network. After testing and recording were complete, the local validator and its ledger were removed at the user's request to free host resources. Public devnet activation remains pending.
+On November 26, 2026, the verified compiled Anchor program was deployed to public Solana devnet. The hosted buyer and scout workflow funded a sample listing, claimed it, signed and stored its report, verified the photo and wallet signature, and paid two test tokens. The payout finalized, and the scout’s on-chain balance increased from 10 to 12 TEST USDC. [Payout evidence](../reports/devnet-payout.json) · [Solana Explorer](https://explorer.solana.com/tx/3zSVqcCExnJiLqKwrtcEPzsxdhnuWQi3LKJLvwjnDB3PHXycJvsbXvBdo2qfsFBpwX2txAyxFN1RqRBA7iyw7ZXm?cluster=devnet).
+
+The current video shows that devnet run with English narration and captions. The labelled illustration and software wallets provide a reproducible demo. [Public walkthrough](https://scoutvault-checks.vercel.app/demo/) · [Video verification](../reports/demo-devnet.json).
+
+The original public release checks ran November 21. The separate local validator and its ledger retired after the local recording was complete. The November 21 reports below describe that earlier setup.
 
 The compiled Anchor program passed [seven local-validator scenarios](../reports/contract.txt): exact funding and payout, buyer self-claim rejection, exclusive scout assignment, report and payment authorization, changed-report rejection, refund and ID-reuse protection, dispute authority, and unsolicited vault donations. Several checks run within the same scenario.
 
@@ -16,6 +20,4 @@ The [finished captioned MP4](../reports/demo.json) is exactly 150 seconds, with 
 
 The [Android release verification](../reports/android.json) checked APK signing, package identity, permissions, and its certificate against the published website identity. It compiles against the stable API 37.0 SDK and targets API 36 on arm64 devices. It is a signed development release with optional minification disabled. A physical Seeker test has not been performed.
 
-The intended public devnet program is not yet deployed; its wallet still had zero free test SOL at the final check. The recorded local demo executed the actual compiled program on its own validator and database. The video captures a readable receipt from that run. The retired local RPC and its old receipts are no longer available online. Local transactions are never presented as public devnet transactions.
-
-Local transactions are not public devnet transactions. A sample illustration is not a site visit. A wallet signature binds bytes to a wallet, not to an authentic camera sensor, GPS reading, student identity, or safe listing. Compilation and passing checks do not establish a security audit.
+The report signature binds the submitted bytes to the wallet and bounty. The buyer reviews the evidence before approving payment. The hardware check and independent security audit remain open.

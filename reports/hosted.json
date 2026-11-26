@@ -1,10 +1,10 @@
 {
-  "checkedAt": "2026-11-21T03:13:06.829Z",
+  "checkedAt": "2026-11-26T10:47:30.187Z",
   "site": "https://scoutvault-checks.vercel.app",
   "staticRoutes": true,
   "localDemoReady": false,
   "localDemoRetired": true,
-  "devnetReady": false,
+  "devnetReady": true,
   "networkLabels": true,
   "programId": "Bs6t2UmHXvxE3WF1upyXTpSkehhUxin7wzZt1c2G8MNV"
 }

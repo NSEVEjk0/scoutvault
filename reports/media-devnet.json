@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-11-26T10:47:31.814Z",
+  "network": "devnet",
+  "results": [
+    {
+      "width": 1440,
+      "duration": 150.021333,
+      "played": true,
+      "captions": true,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "duration": 150.021333,
+      "played": true,
+      "captions": true,
+      "noOverflow": true
+    }
+  ]
+}
